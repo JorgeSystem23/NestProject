@@ -5,10 +5,12 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from "@nestjs/common";
 import { CarsService } from "./cars.service";
+import { CreateCarDto } from "./dtos/create-car.dto";
 
 @Controller("cars")
 export class CarsController {
@@ -20,14 +22,14 @@ export class CarsController {
   }
 
   @Get(":id")
-  getCarById(@Param("id", ParseIntPipe) id: number) {
+  getCarById(@Param("id", ParseUUIDPipe) id: string) {
     console.log({ id });
     return this.carsService.findOneById(id);
   }
 
   @Post()
-  createCar(@Body() body: any) {
-    return body;
+  createCar(@Body() createCarDto: CreateCarDto) {
+    return createCarDto;
   }
 
   @Patch(":id")
